@@ -28,27 +28,12 @@ export function SidebarHelp(props) {
       <Image src={SidebarHelpImage} w='110px' h="auto" />
       <Flex direction='column' textAlign='center'>
         <Text fontSize='14px' color={textColor} fontWeight='bold'>
-          Need help?
+          Нужна помощь?
         </Text>
         <Text fontSize='12px' color='gray.500'>
-          Please check our docs.
+          Cвяжитесь с admin@gmail.com
         </Text>
       </Flex>
-      <Link href='https://demos.creative-tim.com/docs-argon-dashboard-chakra' minW='100%'>
-        <Button variant='primary' minW='100%'>
-          DOCUMENTATION
-        </Button>
-      </Link>
-      <Link href='https://www.creative-tim.com/product/argon-dashboard-chakra-pro' minW='100%'>
-        
-          <Button
-            variant={colorMode === "light" ? 'dark' : "navy"}
-            minW='100%'
-            mb={window.innerWidth <= 1024 && "12px"}>
-            UPGRADE TO PRO
-          </Button>
-        
-      </Link>
     </Stack>
   );
 }

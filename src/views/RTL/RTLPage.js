@@ -28,7 +28,6 @@ import IconBox from "components/Icons/IconBox";
 import {
   CartIcon,
   DocumentIcon,
-  GlobeIcon,
   WalletIcon,
 } from "components/Icons/Icons.js";
 import React from "react";
@@ -122,7 +121,6 @@ export default function Dashboard() {
                 h={"45px"}
                 w={"45px"}
                 bg={iconBlue}>
-                <GlobeIcon h={"24px"} w={"24px"} color={iconBoxInside} />
               </IconBox>
             </Flex>
             <Text color='gray.400' fontSize='sm'>
