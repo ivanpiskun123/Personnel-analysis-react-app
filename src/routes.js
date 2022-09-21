@@ -6,7 +6,6 @@ import Billing from "views/Dashboard/Billing.js";
 import RTLPage from "views/RTL/RTLPage.js";
 import Profile from "views/Dashboard/Profile.js";
 import SignIn from "views/Pages/SignIn.js";
-import SignUp from "views/Pages/SignUp.js";
 
 import {
   HomeIcon,
@@ -75,7 +74,15 @@ var dashRoutes = [
         rtlName: "Выйти",
         icon: <ProfileIcon color='inherit' />,
         isSignOut: true
-      }
+      },
+      {
+        path: "/signin",
+        name: "Войти",
+        rtlName: "Войти",
+        icon: <PersonIcon color='inherit' />,
+        component: SignIn,
+        layout: "/auth",
+      },
     ],
   },
 ];
