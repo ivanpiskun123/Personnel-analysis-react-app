@@ -16,12 +16,14 @@ import {
   DocumentIcon,
   RocketIcon,
   SupportIcon,
-  GlobeIcon
+  GlobeIcon,
+  PayPalIcon,
+  ProfileIcon
 } from "components/Icons/Icons";
 
 var dashRoutes = [
   {
-    path: "/dashboard",
+    path: "/candidates",
     name: "Кандидаты",
     rtlName: "Candidates",
     icon: <PersonIcon color='inherit' />,
@@ -45,44 +47,35 @@ var dashRoutes = [
     layout: "/admin",
   },
   {
-    path: "/rtl-support-page",
+    path: "/profile",
     name: "Критерии",
     rtlName: "Criteria",
     icon: <SupportIcon color='inherit' />,
-    component: RTLPage,
-    layout: "/rtl",
+    component: Profile,
+    layout: "/admin",
   },
   {
-    name: "ACCOUNT PAGES",
+    name: "Настройки аккаунта",
     category: "account",
-    rtlName: "صفحات",
+    rtlName: "Account settings",
     state: "pageCollapse",
     views: [
       {
-        path: "/profile",
-        name: "Profile",
-        rtlName: "لوحة القيادة",
-        icon: <PersonIcon color='inherit' />,
+        path: "/rtl-support-page",
+        name: "Изменить сторону",
+        rtlName: "Изменить сторону",
+        icon: <PayPalIcon color='inherit' />,
         secondaryNavbar: true,
-        component: Profile,
-        layout: "/admin",
+        component: RTLPage,
+        layout: "/rtl",
       },
       {
-        path: "/signin",
-        name: "Sign In",
-        rtlName: "لوحة القيادة",
-        icon: <DocumentIcon color='inherit' />,
-        component: SignIn,
-        layout: "/auth",
-      },
-      {
-        path: "/signup",
-        name: "Sign Up",
-        rtlName: "لوحة القيادة",
-        icon: <RocketIcon color='inherit' />,
-        component: SignUp,
-        layout: "/auth",
-      },
+        path: "/signout",
+        name: "Выйти",
+        rtlName: "Выйти",
+        icon: <ProfileIcon color='inherit' />,
+        isSignOut: true
+      }
     ],
   },
 ];

@@ -32,7 +32,6 @@ import { Scrollbars } from "react-custom-scrollbars";
 import { NavLink, useLocation } from "react-router-dom";
 
 
-
 // FUNCTIONS
 
 function Sidebar(props) {
@@ -86,6 +85,117 @@ function Sidebar(props) {
           </>
         );
       }
+      if (prop.isSignOut)
+      {
+        <NavLink to="#" key={key} onClick={logOut}>
+          {activeRoute(prop.layout + prop.path) === "active" ? (
+              <Button
+                  boxSize="initial"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  boxShadow={sidebarActiveShadow}
+                  bg={activeBg}
+                  transition={variantChange}
+                  mb={{
+                    xl: "6px",
+                  }}
+                  mx={{
+                    xl: "auto",
+                  }}
+                  ps={{
+                    sm: "10px",
+                    xl: "16px",
+                  }}
+                  py="12px"
+                  borderRadius="15px"
+                  _hover="none"
+                  w="100%"
+                  _active={{
+                    bg: "inherit",
+                    transform: "none",
+                    borderColor: "transparent",
+                  }}
+                  _focus={{
+                    boxShadow: "0px 7px 11px rgba(0, 0, 0, 0.04)",
+                  }}
+              >
+                <Flex>
+                  {typeof prop.icon === "string" ? (
+                      <Icon>{prop.icon}</Icon>
+                  ) : (
+                      <IconBox
+                          bg="blue.500"
+                          color="white"
+                          h="30px"
+                          w="30px"
+                          me="12px"
+                          transition={variantChange}
+                      >
+                        {prop.icon}
+                      </IconBox>
+                  )}
+                  <Text color={activeColor} my="auto" fontSize="sm">
+                    {document.documentElement.dir === "rtl"
+                        ? prop.rtlName
+                        : prop.name}
+                  </Text>
+                </Flex>
+              </Button>
+          ) : (
+              <Button
+                  boxSize="initial"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  bg="transparent"
+                  mb={{
+                    xl: "6px",
+                  }}
+                  mx={{
+                    xl: "auto",
+                  }}
+                  py="12px"
+                  ps={{
+                    sm: "10px",
+                    xl: "16px",
+                  }}
+                  borderRadius="15px"
+                  _hover="none"
+                  w="100%"
+                  _active={{
+                    bg: "inherit",
+                    transform: "none",
+                    borderColor: "transparent",
+                  }}
+                  _focus={{
+                    boxShadow: "none",
+                  }}
+              >
+                <Flex>
+                  {typeof prop.icon === "string" ? (
+                      <Icon>{prop.icon}</Icon>
+                  ) : (
+                      <IconBox
+                          bg={inactiveBg}
+                          color="blue.500"
+                          h="30px"
+                          w="30px"
+                          me="12px"
+                          transition={variantChange}
+                      >
+                        {prop.icon}
+                      </IconBox>
+                  )}
+                  <Text color={inactiveColor} my="auto" fontSize="sm">
+                    {document.documentElement.dir === "rtl"
+                        ? prop.rtlName
+                        : prop.name}
+                  </Text>
+                </Flex>
+              </Button>
+          )}
+        </NavLink>
+      }
+
       return (
         <NavLink to={prop.layout + prop.path} key={key}>
           {activeRoute(prop.layout + prop.path) === "active" ? (
@@ -205,6 +315,7 @@ function Sidebar(props) {
   let sidebarBg = useColorModeValue("white", "navy.800");
   let sidebarRadius = "20px";
   let sidebarMargins = "0px";
+
   var brand = (
     <Box pt={"25px"} mb="12px">
       {logo}
