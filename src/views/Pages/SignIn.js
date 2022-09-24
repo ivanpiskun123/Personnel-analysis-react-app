@@ -17,16 +17,40 @@ import {
 // Assets
 import BgSignUp from "assets/img/BgSignUp.png";
 import React from "react";
-import { FaApple, FaFacebook, FaGoogle } from "react-icons/fa";
+import AuthService from "../../API/AuthService";
+import {AuthContext} from "../../contexts/AuthContext";
+import {useState,useContext} from "react";
 
 const Signin = () => {
 
   const bgForm = useColorModeValue("white", "navy.800");
   const titleColor = useColorModeValue("gray.700", "blue.500");
   const textColor = useColorModeValue("gray.700", "white");
-  const colorIcons = useColorModeValue("gray.700", "white");
-  const bgIcons = useColorModeValue("trasnparent", "navy.700");
-  const bgIconsHover = useColorModeValue("gray.50", "whiteAlpha.100");
+
+  const {isAuth, setIsAuth,isAdmin,setIsAdmin} = useContext(AuthContext);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const authFetchUser = async () => {
+      try {
+        const response = await AuthService.athenticate(email, password);
+        console.log(response.data.data)
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem('user_id',response.data.user_id)
+        localStorage.setItem('is_admin',response.data.is_admin)
+        localStorage.setItem('auth', 'true')
+        setIsAuth(true)
+      } catch (e) {
+        console.log("Wrong email or password")
+      }
+    }
+    authFetchUser()
+  }
+
   return (
       <Flex
           direction='column'
@@ -85,9 +109,10 @@ const Signin = () => {
                   "0px 5px 14px rgba(0, 0, 0, 0.05)",
                   "unset"
               )}>
-            <FormControl>
+            <form noValidate onSubmit={handleSubmit}  >
+              <FormControl >
               <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
-                 Имя
+                 Email
               </FormLabel>
               <Input
                   variant='auth'
@@ -97,6 +122,8 @@ const Signin = () => {
                   placeholder='Ваш email'
                   mb='24px'
                   size='lg'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
               />
               <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
                 Пароль
@@ -109,6 +136,8 @@ const Signin = () => {
                   placeholder='Ваш пароль'
                   mb='24px'
                   size='lg'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
               />
               <FormControl display='flex' alignItems='center' mb='24px'>
                 <Switch id='remember-login' colorScheme='blue' me='10px' />
@@ -122,10 +151,12 @@ const Signin = () => {
                   fontWeight='bold'
                   w='100%'
                   h='45'
-                  mb='24px'>
+                  mb='24px'
+                  type='submit'>
                 Войти
               </Button>
             </FormControl>
+            </form>
             <Flex
                 flexDirection='column'
                 justifyContent='center'

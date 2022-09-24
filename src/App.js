@@ -15,6 +15,9 @@ const App = () => {
             if(localStorage.getItem('auth'))
             {
                 setIsAuth(true)
+                setCurrentUserId(localStorage.getItem('user_id'))
+                localStorage.getItem('is_admin') == 'true' ?
+                    setIsAdmin(true) : setIsAdmin(false)
             }
         }
         ,[])

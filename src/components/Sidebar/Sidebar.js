@@ -32,6 +32,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import { NavLink, useLocation } from "react-router-dom";
 import {AuthContext} from "../../contexts/AuthContext";
 import {useContext} from "react";
+import Signin from "../../views/Pages/SignIn";
 
 
 function Sidebar(props) {
@@ -48,6 +49,9 @@ function Sidebar(props) {
   const { colorMode } = useColorMode;
   // this function creates the links and collapses that appear in the sidebar (left menu)
   const { sidebarVariant } = props;
+
+  const {logOut} = useContext(AuthContext);
+
   const createLinks = (routes) => {
     // Chakra Color Mode
     let activeBg = useColorModeValue("white", "navy.700");
@@ -87,7 +91,12 @@ function Sidebar(props) {
       }
 
       return (
-        <NavLink to={prop.layout + prop.path} key={key}>
+        <NavLink to={prop.layout + prop.path} key={key} onClick={
+          prop.isSignOut ?
+              logOut
+              :
+              null
+        }>
           {activeRoute(prop.layout + prop.path) === "active" ? (
             <Button
               boxSize="initial"
