@@ -16,10 +16,11 @@ import {
 } from "@chakra-ui/react";
 // Assets
 import BgSignUp from "assets/img/BgSignUp.png";
-import React from "react";
+import React, {useEffect} from "react";
 import AuthService from "../../API/AuthService";
 import {AuthContext} from "../../contexts/AuthContext";
 import {useState,useContext} from "react";
+import "../../styles/login.css"
 
 const Signin = () => {
 
@@ -27,10 +28,25 @@ const Signin = () => {
   const titleColor = useColorModeValue("gray.700", "blue.500");
   const textColor = useColorModeValue("gray.700", "white");
 
-  const {isAuth, setIsAuth,isAdmin,setIsAdmin} = useContext(AuthContext);
+  const {setIsAuth,isAdmin,setIsAdmin} = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoginFailed, setIsLoginFailed] = useState(false)
+
+  const [formStyleClasses, setFormStyleClasses] = useState("")
+
+  useEffect(
+      ()=>{
+        if(isLoginFailed )
+        {
+          setFormStyleClasses("shaking-class" );
+          setTimeout(() => {setFormStyleClasses("" );}, 800);
+          setIsLoginFailed(false)
+        }
+      },
+      [isLoginFailed]
+  )
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -45,7 +61,7 @@ const Signin = () => {
         localStorage.setItem('auth', 'true')
         setIsAuth(true)
       } catch (e) {
-        console.log("Wrong email or password")
+        setIsLoginFailed(true)
       }
     }
     authFetchUser()
@@ -96,7 +112,7 @@ const Signin = () => {
             Мы рады снова видеть Вас с нами! Пожалуйста, авторизуйтесь для дальнейших действий
           </Text>
         </Flex>
-        <Flex alignItems='center' justifyContent='center' mb='60px' mt='20px'>
+        <Flex alignItems='center' justifyContent='center' mb='60px' mt='20px' className={formStyleClasses}>
           <Flex
               direction='column'
               w='445px'
@@ -109,7 +125,7 @@ const Signin = () => {
                   "0px 5px 14px rgba(0, 0, 0, 0.05)",
                   "unset"
               )}>
-            <form noValidate onSubmit={handleSubmit}  >
+            <form noValidate onSubmit={handleSubmit} >
               <FormControl >
               <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
                  Email
