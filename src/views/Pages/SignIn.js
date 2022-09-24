@@ -54,7 +54,6 @@ const Signin = () => {
     const authFetchUser = async () => {
       try {
         const response = await AuthService.athenticate(email, password);
-        console.log(response.data.data)
         localStorage.setItem("token", response.data.token);
         localStorage.setItem('user_id',response.data.user_id)
         localStorage.setItem('is_admin',response.data.is_admin)
