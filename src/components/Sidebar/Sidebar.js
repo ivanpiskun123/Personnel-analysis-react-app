@@ -90,6 +90,10 @@ function Sidebar(props) {
         );
       }
 
+      if(prop.component == Signin){
+        return <></>
+      }
+
       return (
         <NavLink to={prop.layout + prop.path} key={key} onClick={
           prop.isSignOut ?
