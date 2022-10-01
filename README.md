@@ -182,7 +182,7 @@ argon-dashboard-chakra/
     ├── views
     │   ├── Dashboard
     │   │   ├── Billing.js
-    │   │   ├── Dashboard.js
+    │   │   ├── Candidates.js
     │   │   ├── Profile.js
     │   │   └── Tables.js
     │   ├── Pages

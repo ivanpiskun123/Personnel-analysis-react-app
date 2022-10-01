@@ -1,6 +1,6 @@
 // import
 import React, { Component }  from 'react';
-import Dashboard from "views/Dashboard/Dashboard.js";
+import Candidates from "views/Dashboard/Candidates.js";
 import Tables from "views/Dashboard/Tables.js";
 import Billing from "views/Dashboard/Billing.js";
 import RTLPage from "views/RTL/RTLPage.js";
@@ -26,7 +26,7 @@ var dashRoutes = [
     name: "Кандидаты",
     rtlName: "Candidates",
     icon: <PersonIcon color='inherit' />,
-    component: Dashboard,
+    component: Candidates,
     layout: "/admin",
   },
   {
@@ -54,20 +54,11 @@ var dashRoutes = [
     layout: "/admin",
   },
   {
-    name: "Настройки аккаунта",
+    name: "Аккаунт",
     category: "account",
     rtlName: "Account settings",
     state: "pageCollapse",
     views: [
-      {
-        path: "/rtl-support-page",
-        name: "Изменить сторону",
-        rtlName: "Изменить сторону",
-        icon: <PayPalIcon color='inherit' />,
-        secondaryNavbar: true,
-        component: RTLPage,
-        layout: "/rtl",
-      },
       {
         path: "/signout",
         name: "Выйти",

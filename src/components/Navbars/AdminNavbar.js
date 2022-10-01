@@ -75,7 +75,7 @@ export default function AdminNavbar(props) {
       setScrolled(false);
     }
   };
-  
+
   return (
     <Flex
       position={navbarPosition}
@@ -124,7 +124,7 @@ export default function AdminNavbar(props) {
           <Breadcrumb>
             <BreadcrumbItem color={mainText}>
               <BreadcrumbLink href="#" color={secondaryText}>
-                Pages
+                Вкладки
               </BreadcrumbLink>
             </BreadcrumbItem>
 

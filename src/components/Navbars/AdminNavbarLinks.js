@@ -8,7 +8,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList, Stack, Text, useColorMode,
-  useColorModeValue
+  useColorModeValue, MenuDivider,  MenuOptionGroup
 } from "@chakra-ui/react";
 // Assets
 import avatar1 from "assets/img/avatars/avatar1.png";
@@ -53,30 +53,6 @@ export default function HeaderLinks(props) {
       alignItems='center'
       flexDirection='row'>
       <SearchBar me='18px' />
-      <NavLink to='/auth/signin'>
-        <Button
-          ms='0px'
-          px='0px'
-          me={{ sm: "2px", md: "16px" }}
-          color={navbarIcon}
-          variant='no-effects'
-          rightIcon={
-            document.documentElement.dir ? (
-              ""
-            ) : (
-              <ProfileIcon color={navbarIcon} w='22px' h='22px' me='0px' />
-            )
-          }
-          leftIcon={
-            document.documentElement.dir ? (
-              <ProfileIcon color={navbarIcon} w='22px' h='22px' me='0px' />
-            ) : (
-              ""
-            )
-          }>
-          <Text display={{ sm: "none", md: "flex" }}>Sign In</Text>
-        </Button>
-      </NavLink>
       <SidebarResponsive
         hamburgerColor={"white"}
         logo={
@@ -116,7 +92,9 @@ export default function HeaderLinks(props) {
         <MenuButton>
           <BellIcon color={navbarIcon} w='18px' h='18px' />
         </MenuButton>
+        <MenuDivider />
         <MenuList p='16px 8px' bg={menuBg}>
+          <MenuOptionGroup defaultValue="asc" title="Новые кандидаты" type="radio">
           <Flex flexDirection='column'>
             <MenuItem borderRadius='8px' mb='10px'>
               <ItemContent
@@ -146,6 +124,7 @@ export default function HeaderLinks(props) {
               />
             </MenuItem>
           </Flex>
+          </MenuOptionGroup>
         </MenuList>
       </Menu>
     </Flex>

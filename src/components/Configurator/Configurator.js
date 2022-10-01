@@ -14,11 +14,13 @@ import {
   useColorModeValue
 } from "@chakra-ui/react";
 import { HSeparator } from "components/Separator/Separator";
-import React, { useState } from "react";
-import GitHubButton from "react-github-btn";
-import { FaFacebook, FaTwitter } from "react-icons/fa";
+import React, { useState, useContext } from "react";
+import {AuthContext} from "../../contexts/AuthContext";
 
 export default function Configurator(props) {
+
+  const {isAdmin} = useContext(AuthContext);
+
   const {
     sidebarVariant,
     setSidebarVariant,
@@ -54,19 +56,16 @@ export default function Configurator(props) {
         <DrawerContent bg={bgDrawer}>
           <DrawerHeader pt="24px" px="24px">
             <DrawerCloseButton />
-            <Text fontSize="xl" fontWeight="bold" mt="16px">
-              Argon Chakra Configurator
-            </Text>
-            <Text fontSize="md" mb="16px">
-              See your dashboard options.
+            <Text fontSize="17px" fontWeight="bold" mt="16px">
+              Дополнительные настройки
             </Text>
             <HSeparator />
           </DrawerHeader>
           <DrawerBody w="340px" ps="24px" pe="40px">
             <Flex flexDirection="column">
               <Flex justifyContent="space-between " mb="16px">
-                <Text fontSize="md" fontWeight="600" mb="4px">
-                  Navbar Fixed
+                <Text fontSize="14px" fontWeight="600" mb="4px">
+                  Зафиксировать топ-меню
                 </Text>
                 <Switch
                   colorScheme="blue"
@@ -87,99 +86,49 @@ export default function Configurator(props) {
                 alignItems="center"
                 mb="24px"
               >
-                <Text fontSize="md" fontWeight="600" mb="4px">
-                  Dark/Light
+                <Text fontSize="14px" fontWeight="600" mb="4px">
+                  Светлый/тёмный
                 </Text>
                 <Button
+                    fontSize="11px"
                   onClick={toggleColorMode}
                   color={colorMode === "light" ? "Dark" : "Light"}
                 >
-                  Toggle {colorMode === "light" ? "Dark" : "Light"}
+                  Включить {colorMode === "light" ? "Dark" : "Light"}
                 </Button>
               </Flex>
 
               <HSeparator />
-              <Box mt="24px">
-                <Box>
-                  <Link
-                    href="https://www.creative-tim.com/product/argon-dashboard-chakra?ref=creativetim-pud"
-                    w="100%"
-                    mb="16px"
-                  >
-                    <Button
-                      w="100%"
-                      mb="16px"
-                      bg={bgButton}
-                      color={colorButton}
-                      fontSize="xs"
-                      variant="no-effects"
-                      px="30px"
-                    >
-                      Free Download
-                    </Button>
-                  </Link>
-                  <Link
-                    href="https://demos.creative-tim.com/docs-argon-dashboard-chakra/?ref=creativetim-pud"
-                    w="100%"
-                  >
-                    <Button
-                      w="100%"
-                      bg={secondaryButtonBg}
-                      border="1px solid"
-                      borderColor={secondaryButtonBorder}
-                      color={secondaryButtonColor}
-                      fontSize="xs"
-                      variant="no-effects"
-                      px="20px"
-                      mb="16px"
-                    >
-                      <Text textDecorationColor="none">Documentation</Text>
-                    </Button>
-                  </Link>
-                </Box>
-                <Flex
-                  justifyContent="center"
-                  alignItems="center"
-                  w="100%"
-                  mb="16px"
-                >
-                  <GitHubButton
-                    href="https://github.com/creativetimofficial/argon-dashboard-chakra"
-                    data-icon="octicon-star"
-                    data-show-count="true"
-                    aria-label="Star creativetimofficial/argon-dashboard-chakra on GitHub"
-                  >
-                    Star
-                  </GitHubButton>
-                </Flex>
-                <Box w="100%">
-                  <Text mb="6px" textAlign="center">
-                    Thank you for sharing!
-                  </Text>
-                  <Flex justifyContent="center" alignContent="center">
-                    <Link
-                      isExternal="true"
-                      href="https://twitter.com/intent/tweet?url=https://www.creative-tim.com/product/argon-dashboard-chakra/&text=Check%20Argon%20Dashboard%20Chakra%20made%20by%20@simmmple_web%20and%20@CreativeTim"
-                    >
-                      <Button
-                        colorScheme="twitter"
-                        leftIcon={<FaTwitter />}
-                        me="10px"
-                      >
-                        <Text>Tweet</Text>
-                      </Button>
-                    </Link>
-                    <Link
-                      isExternal="true"
-                      href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/argon-dashboard-chakra/"
-                    >
-                      <Button colorScheme="facebook" leftIcon={<FaFacebook />}>
-                        <Text>Share</Text>
-                      </Button>
-                    </Link>
-                  </Flex>
-                </Box>
-              </Box>
+              {
+                isAdmin ?
+                    <>
+                      <Box mt="24px">
+                        <Box mb="10px">
+                          <Link
+                              href="http://0.0.0.0:3003/admin"
+                              w="100%"
+                              mb="16px"
+                          >
+                            <Button
+                                w="100%"
+                                mb="16px"
+                                bg={bgButton}
+                                color={colorButton}
+                                fontSize="xs"
+                                variant="no-effects"
+                                px="30px"
+                            >
+                              Управление БД
+                            </Button>
+                          </Link>
+                        </Box>
+                      </Box>
+                      <HSeparator    />
+                    </>
+                    :
+                    <>
+                    </>
+              }
             </Flex>
           </DrawerBody>
         </DrawerContent>
