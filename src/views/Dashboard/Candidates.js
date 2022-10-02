@@ -31,11 +31,12 @@ import {
   WalletIcon,
 } from "components/Icons/Icons.js";
 import React, {useEffect,useState} from "react";
-import {pageVisits, socialTraffic, tablesProjectData, tablesTableData} from "variables/general";
+import {tablesTableData} from "variables/general";
 import CardHeader from "../../components/Card/CardHeader";
 import CardBody from "../../components/Card/CardBody";
 import TablesTableRow from "../../components/Tables/TablesTableRow";
 import { ViewIcon, CheckIcon, CloseIcon, DragHandleIcon} from '@chakra-ui/icons'
+import CandidatesService from "../../API/CandidatesService";
 
 export default function Candidates() {
 
@@ -44,6 +45,24 @@ export default function Candidates() {
   const iconBoxInside = useColorModeValue("white", "white");
   const textColor = useColorModeValue("gray.700", "white");
   const borderColor = useColorModeValue("gray.200", "gray.600");
+
+  const [candidates, setCandidates] = useState([])
+
+  useEffect(() => {
+
+    const fetchCandidates = async  ()=>{
+      try{
+        const response = await CandidatesService.getAll()
+        console.log(response.data.data)
+        setCandidates(response.data.data.data.map((docData)=>docData.attributes ))
+      }
+      catch(e){
+        console.log(e) }
+    }
+
+    fetchCandidates()
+
+  },[])
 
   return (
     <Flex flexDirection='column' pt={{ base: "120px", md: "75px" }}>
