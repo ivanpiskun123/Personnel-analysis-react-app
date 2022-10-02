@@ -8,7 +8,6 @@ import { Route, Switch, Redirect } from "react-router-dom";
 const App = () => {
     const [isAuth, setIsAuth] = useState(false);
     const [currentUserId, setCurrentUserId] = useState(null);
-    const [isAdmin, setIsAdmin] = useState(null)
 
     useEffect( ()=> {
             setIsAuth(false)
@@ -16,8 +15,6 @@ const App = () => {
             {
                 setIsAuth(true)
                 setCurrentUserId(localStorage.getItem('user_id'))
-                localStorage.getItem('is_admin') == 'true' ?
-                    setIsAdmin(true) : setIsAdmin(false)
             }
         }
         ,[])
@@ -41,8 +38,6 @@ const App = () => {
                 <AuthContext.Provider value={{
                     isAuth,
                     setIsAuth,
-                    isAdmin,
-                    setIsAdmin,
                     currentUserId,
                     setCurrentUserId,
                     logOut

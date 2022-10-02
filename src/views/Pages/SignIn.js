@@ -28,7 +28,7 @@ const Signin = () => {
   const titleColor = useColorModeValue("gray.700", "blue.500");
   const textColor = useColorModeValue("gray.700", "white");
 
-  const {setIsAuth,setIsAdmin, setCurrentUserId} = useContext(AuthContext);
+  const {setIsAuth, setCurrentUserId} = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -56,8 +56,6 @@ const Signin = () => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem('user_id',response.data.user_id)
         setCurrentUserId(response.data.user_id)
-        localStorage.setItem('is_admin',response.data.is_admin)
-        setIsAdmin(response.data.is_admin)
         localStorage.setItem('auth', 'true')
         setIsAuth(true)
       } catch (e) {

@@ -17,9 +17,8 @@ import { HSeparator } from "components/Separator/Separator";
 import React, { useState, useContext } from "react";
 import {AuthContext} from "../../contexts/AuthContext";
 
-export default function Configurator(props) {
 
-  const {isAdmin} = useContext(AuthContext);
+export default function Configurator(props) {
 
   const {
     sidebarVariant,
@@ -100,12 +99,12 @@ export default function Configurator(props) {
 
               <HSeparator />
               {
-                isAdmin ?
+
                     <>
                       <Box mt="24px">
                         <Box mb="10px">
                           <Link
-                              href="http://0.0.0.0:3003/admin"
+                              href={"http://0.0.0.0:3003/admin?token="+localStorage.getItem('token')} target="_blank"
                               w="100%"
                               mb="16px"
                           >
@@ -118,15 +117,12 @@ export default function Configurator(props) {
                                 variant="no-effects"
                                 px="30px"
                             >
-                              Управление БД
+                              Администрирование
                             </Button>
                           </Link>
                         </Box>
                       </Box>
                       <HSeparator    />
-                    </>
-                    :
-                    <>
                     </>
               }
             </Flex>
