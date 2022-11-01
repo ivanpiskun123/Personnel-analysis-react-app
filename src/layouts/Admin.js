@@ -9,10 +9,8 @@ import {
 import Configurator from "components/Configurator/Configurator";
 import Footer from "components/Footer/Footer.js";
 import {
-  ArgonLogoDark,
-  ArgonLogoLight,
-  ChakraLogoDark,
-  ChakraLogoLight,
+  AtlassianLogo,
+  DashboardLogo, SettingsIcon,
 } from "components/Icons/Icons";
 // Layout components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
@@ -120,22 +118,10 @@ export default function Dashboard(props) {
         routes={routes}
         logo={
           <Stack direction='row' spacing='12px' align='center' justify='center'>
-            {colorMode === "dark" ? (
-              <ArgonLogoLight w='74px' h='27px' />
-            ) : (
-              <ArgonLogoDark w='74px' h='27px' />
-            )}
-            <Box
-              w='1px'
-              h='20px'
-              bg={colorMode === "dark" ? "white" : "gray.700"}
-            />
-            {colorMode === "dark" ? (
-              <ChakraLogoLight w='82px' h='21px' />
-            ) : (
-              <ChakraLogoDark w='82px' h='21px' />
-            )}
-          </Stack>
+
+            <AtlassianLogo w='102px' h='51px' />
+
+            </Stack>
         }
         display='none'
         {...rest}

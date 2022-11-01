@@ -37,6 +37,10 @@ export default function Configurator(props) {
     "linear-gradient(81.62deg, #313860 2.25%, #151928 79.87%)",
     "white"
   );
+  let bgButtonStat = useColorModeValue(
+      "linear-gradient(81.62deg, #0084DB 2.25%, #0056F0 79.87%)",
+      "white"
+  );
   let colorButton = useColorModeValue("white", "gray.700");
   const secondaryButtonBg = useColorModeValue("white", "transparent");
   const secondaryButtonBorder = useColorModeValue("gray.700", "white");
@@ -119,7 +123,28 @@ export default function Configurator(props) {
                             >
                               Администрирование
                             </Button>
+
                           </Link>
+
+                          <Link
+                              href={"http://0.0.0.0:3003/admin?token="+localStorage.getItem('token')} target="_blank"
+                              w="100%"
+                              mb="16px"
+                          >
+                            <Button
+                                w="100%"
+                                mb="16px"
+                                bg={bgButtonStat}
+                                color={colorButton}
+                                fontSize="xs"
+                                variant="no-effects"
+                                px="30px"
+                            >
+                              Анализ продуктивности
+                            </Button>
+
+                          </Link>
+
                         </Box>
                       </Box>
                       <HSeparator    />
