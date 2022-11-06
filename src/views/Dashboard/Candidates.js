@@ -1,42 +1,38 @@
 // Chakra imports
 import {
-  Box,
-  Button,
   Flex,
   Grid,
-  Progress,
+  GridItem,
   SimpleGrid,
   Stat,
   StatLabel,
   StatNumber,
   Table,
   Tbody,
-  Td,
   Text,
   Th,
   Thead,
   Tr,
-  useColorMode,
-  useColorModeValue,
+  useColorModeValue,Progress,Button, useDisclosure,ModalOverlay
 } from "@chakra-ui/react";
 // Custom components
 import Card from "components/Card/Card.js";
-import BarChart from "components/Charts/BarChart";
-import LineChart from "components/Charts/LineChart";
 import IconBox from "components/Icons/IconBox";
-// Custom icons
-import {
-  CartIcon,
-  DocumentIcon,
-  WalletIcon,
-} from "components/Icons/Icons.js";
 import React, {useEffect,useState} from "react";
 import {tablesTableData} from "variables/general";
 import CardHeader from "../../components/Card/CardHeader";
 import CardBody from "../../components/Card/CardBody";
 import TablesTableRow from "../../components/Tables/TablesTableRow";
-import { ViewIcon, CheckIcon, CloseIcon, DragHandleIcon} from '@chakra-ui/icons'
+import { ViewIcon, CheckIcon, CloseIcon, DragHandleIcon, AddIcon} from '@chakra-ui/icons'
 import CandidatesService from "../../API/CandidatesService";
+import {SearchBar} from "../../components/Navbars/SearchBar/SearchBar";
+import {SortBar} from "../../components/Navbars/SortBar/SortBar";
+import {FilterBar} from "../../components/Navbars/FilterBar/FilterBar";
+import {useCandidates} from '../../hooks/useCandidates';
+import LoadingBar from '../../components/Layout/LoadingBar'
+import CandidateNewModal from '../../components/Card/CandidateNewModal'
+import CandidateModal from "../../components/Card/CandidateModal";
+
 
 export default function Candidates() {
 
@@ -47,6 +43,11 @@ export default function Candidates() {
   const borderColor = useColorModeValue("gray.200", "gray.600");
 
   const [candidates, setCandidates] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [query, setQuery] = useState('')
+  const [sort, setSort] = useState('')
+  const [filter, setFilter] = useState('')
+  const searchedCandidates = useCandidates(candidates, sort, query,filter)
 
   useEffect(() => {
 
@@ -54,13 +55,45 @@ export default function Candidates() {
       try{
         const response = await CandidatesService.getAll()
         console.log(response.data.data)
-        setCandidates(response.data.data.data.map((docData)=>docData.attributes ))
+        setCandidates(response.data.data.data)
+        setIsLoading(false)
       }
       catch(e){
-        console.log(e) }
+        console.log(e)
+        setIsLoading(false)
+      }
     }
     fetchCandidates()
   },[])
+
+  const currentCandidatesInProgress = (candidates)=>{
+    return  candidates.filter((obj) =>
+        obj.attributes.status == 1
+    )
+  }
+
+  const currentCandidatesRejected= (candidates)=>{
+    return candidates.filter((obj) =>
+        obj.attributes.status == 0
+    )
+  }
+
+  const currentCandidatesApplied = (candidates)=>{
+    return  candidates.filter((obj) =>
+          obj.attributes.status == 2
+
+    )
+  }
+
+  const OverlayOne = () => (
+      <ModalOverlay
+          backdropFilter='blur(10px)'
+      />
+  )
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [overlay, setOverlay] = React.useState(<OverlayOne />)
+
 
   return (
     <Flex flexDirection='column' pt={{ base: "120px", md: "75px" }}>
@@ -83,9 +116,8 @@ export default function Candidates() {
                   Рассматриваются
                 </StatLabel>
                 <Flex>
-
                   <StatNumber fontSize='lg' color={textColor} fontWeight='bold'>
-                    222
+                    {currentCandidatesInProgress(searchedCandidates).length}
                   </StatNumber>
                 </Flex>
               </Stat>
@@ -106,7 +138,6 @@ export default function Candidates() {
           </Flex>
         </Card>
 
-
         <Card minH='125px'>
           <Flex direction='column'>
             <Flex
@@ -126,7 +157,7 @@ export default function Candidates() {
                 <Flex>
 
                   <StatNumber fontSize='lg' color={textColor} fontWeight='bold'>
-                    222
+                    {currentCandidatesApplied(searchedCandidates).length}
                   </StatNumber>
                 </Flex>
               </Stat>
@@ -147,7 +178,6 @@ export default function Candidates() {
           </Flex>
         </Card>
 
-
         <Card minH='125px'>
           <Flex direction='column'>
             <Flex
@@ -165,9 +195,8 @@ export default function Candidates() {
                   Отклонены
                 </StatLabel>
                 <Flex>
-
                   <StatNumber fontSize='lg' color={textColor} fontWeight='bold'>
-                    222
+                    {currentCandidatesRejected(searchedCandidates).length}
                   </StatNumber>
                 </Flex>
               </Stat>
@@ -195,7 +224,7 @@ export default function Candidates() {
                 align='center'
                 justify='center'
                 w='100%'
-                mb='25px'>
+                mb='5px'>
               <Stat me='auto'>
                 <StatLabel
                     fontSize='xs'
@@ -207,7 +236,7 @@ export default function Candidates() {
                 <Flex>
 
                   <StatNumber fontSize='lg' color={textColor} fontWeight='bold'>
-                    222
+                    {searchedCandidates.length}
                   </StatNumber>
                 </Flex>
               </Stat>
@@ -221,56 +250,112 @@ export default function Candidates() {
               </IconBox>
             </Flex>
 
+            <Flex align='center'>
+              <Progress
+                  size='xs'
+                  value={searchedCandidates.length/candidates.length*100}
+                  minW='120px'
+              />
+              <Text
+                  ml={"8px"}
+                  fontWeight='bold'
+                  fontSize='sm'
+                  me='12px'>
+                {searchedCandidates.length}/{candidates.length}
+              </Text>
+            </Flex>
+
             <Text color='gray.400' fontSize='sm' >
               <DragHandleIcon color='gray.400' mr="10px" />
               Все кандидаты
             </Text>
           </Flex>
         </Card>
-
       </SimpleGrid>
-
-        <Card overflowX={{ sm: "scroll", xl: "hidden" }} pb="0px">
+      <Card overflowX={{ sm: "scroll", xl: "hidden" }} pb="0px">
           <CardHeader p="6px 0px 22px 0px">
-            <Text fontSize="xl" color={textColor} fontWeight="bold">
-              Кандидаты
-            </Text>
+              <Grid templateColumns="repeat(5, 1fr)" gap={3}>
+                <GridItem colSpan={4} >
+                  <Text fontSize="xl" color={textColor} fontWeight="bold">
+                    Кандидаты
+                  </Text>
+                </GridItem>
+                <GridItem >
+                  <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+                    <GridItem mr={14}>
+                      <Button size="sm" variant="outline"
+                              colorScheme="green" bgcolor="green.400"
+                              leftIcon={<AddIcon />}
+                              onClick={() => {
+                                setOverlay(<OverlayOne />)
+                                onOpen()}}
+                      >
+                        Новый
+                      </Button>
+                      <CandidateNewModal isOpen={isOpen} onClose={onClose} overlay={overlay} candidates={candidates}
+                                      setCandidates={setCandidates} />
+                    </GridItem>
+                    <GridItem >
+                      <SortBar sort={sort} setSort={setSort} />
+                      </GridItem>
+                    <GridItem  >
+                      <FilterBar filter={filter} setFilter={setFilter} />
+                    </GridItem>
+                    <GridItem   >
+                      <SearchBar query={query} setQuery={setQuery} />
+                    </GridItem>
+                  </Grid>
+                </GridItem>
+              </Grid>
           </CardHeader>
+
           <CardBody>
             <Table variant="simple" color={textColor}>
               <Thead>
                 <Tr my=".8rem" pl="0px" color="gray.400" >
                   <Th pl="0px" borderColor={borderColor} color="gray.400" >
-                    Author
+                    Кандидат
                   </Th>
-                  <Th borderColor={borderColor} color="gray.400" >Function</Th>
-                  <Th borderColor={borderColor} color="gray.400" >Status</Th>
-                  <Th borderColor={borderColor} color="gray.400" >Employed</Th>
+                  <Th borderColor={borderColor} color="gray.400" >Вакансия</Th>
+                  <Th borderColor={borderColor} color="gray.400" >Статус</Th>
+                  <Th borderColor={borderColor} color="gray.400" >Баллы</Th>
+                  <Th borderColor={borderColor} color="gray.400" >Создан</Th>
                   <Th borderColor={borderColor}></Th>
                 </Tr>
               </Thead>
-              <Tbody>
-                {tablesTableData.map((row, index, arr) => {
-                  return (
-                      <TablesTableRow
-                          name={row.name}
-                          logo={row.logo}
-                          email={row.email}
-                          subdomain={row.subdomain}
-                          domain={row.domain}
-                          status={row.status}
-                          date={row.date}
-                          isLast={index === arr.length - 1 ? true : false}
-                          key={index}
-                      />
-                  );
-                })}
-              </Tbody>
+              {
+
+                isLoading ?
+                    <LoadingBar/>
+                  :
+                    searchedCandidates.length==0 ?
+                        <Grid templateColumns="repeat(5, 1fr)" gap={4}>
+                          <GridItem colSpan={3} >
+                            <Text fontSize="md" color={textColor}>
+                              Кандидатов не найдено
+                            </Text>
+                          </GridItem>
+                        </Grid>
+                        :
+
+                  <Tbody>
+                    {searchedCandidates.map((row, index, arr) => {
+                      return (
+                          <TablesTableRow
+                              isLast={index === arr.length - 1 ? true : false}
+                              key={index}
+                              currentCandidate={row}
+                              candidates = {candidates}
+                              setCandidates = {setCandidates}
+                          />
+                      );
+                    })}
+                  </Tbody>
+              }
+
             </Table>
           </CardBody>
         </Card>
-
-
     </Flex>
   );
 }

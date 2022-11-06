@@ -1,22 +1,17 @@
 // import
 import React, { Component }  from 'react';
 import Candidates from "views/Dashboard/Candidates.js";
-import Tables from "views/Dashboard/Tables.js";
+import Vacancies from "views/Dashboard/Vacancies.js";
 import Billing from "views/Dashboard/Billing.js";
 import RTLPage from "views/RTL/RTLPage.js";
 import Profile from "views/Dashboard/Profile.js";
 import SignIn from "views/Pages/SignIn.js";
+import { FaRegWindowClose } from "react-icons/fa";
+
 
 import {
-  HomeIcon,
-  StatsIcon,
-  CreditIcon,
   PersonIcon,
-  DocumentIcon,
-  RocketIcon,
-  SupportIcon,
   GlobeIcon,
-  PayPalIcon,
   ProfileIcon
 } from "components/Icons/Icons";
 
@@ -30,29 +25,29 @@ var dashRoutes = [
     layout: "/admin",
   },
   {
-    path: "/tables",
+    path: "/vacancies",
     name: "Вакансии",
     rtlName: "Vacancies",
     icon: <GlobeIcon color='inherit' />,
-    component: Tables,
+    component: Vacancies,
     layout: "/admin",
   },
-  {
-    path: "/billing",
-    name: "Должности",
-    rtlName: "Positions",
-    icon: <DocumentIcon color='inherit' />,
-    component: Billing,
-    layout: "/admin",
-  },
-  {
-    path: "/profile",
-    name: "Критерии",
-    rtlName: "Criteria",
-    icon: <SupportIcon color='inherit' />,
-    component: Profile,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/billing",
+  //   name: "Должности",
+  //   rtlName: "Positions",
+  //   icon: <DocumentIcon color='inherit' />,
+  //   component: Billing,
+  //   layout: "/admin",
+  // },
+  // {
+  //   path: "/profile",
+  //   name: "Критерии",
+  //   rtlName: "Criteria",
+  //   icon: <SupportIcon color='inherit' />,
+  //   component: Profile,
+  //   layout: "/admin",
+  // },
   {
     name: "Аккаунт",
     category: "account",
@@ -63,7 +58,7 @@ var dashRoutes = [
         path: "/signout",
         name: "Выйти",
         rtlName: "Выйти",
-        icon: <ProfileIcon color='inherit' />,
+        icon: <FaRegWindowClose color='inherit' />,
         isSignOut: true
       },
       {

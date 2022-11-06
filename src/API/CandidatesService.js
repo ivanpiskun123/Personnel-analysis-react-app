@@ -11,4 +11,20 @@ export default class CandidatesService {
         });
         return response
     }
+
+    static async createCandidate(candidate){
+        const response =  axios.post(`http://localhost:3003/candidates`,
+            {
+                candidate
+            },
+            {
+                headers:
+                    {
+                        'Content-Type': 'application/json',
+                        'authorization': localStorage.getItem('token')
+                    }
+            });
+
+        return response
+    }
 }

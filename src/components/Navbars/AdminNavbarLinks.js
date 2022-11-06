@@ -52,7 +52,6 @@ export default function HeaderLinks(props) {
       w={{ sm: "100%", md: "auto" }}
       alignItems='center'
       flexDirection='row'>
-      <SearchBar me='18px' />
       <SidebarResponsive
         hamburgerColor={"white"}
         logo={
@@ -88,45 +87,7 @@ export default function HeaderLinks(props) {
         w='18px'
         h='18px'
       />
-      <Menu>
-        <MenuButton>
-          <BellIcon color={navbarIcon} w='18px' h='18px' />
-        </MenuButton>
-        <MenuDivider />
-        <MenuList p='16px 8px' bg={menuBg}>
-          <MenuOptionGroup defaultValue="asc" title="Новые кандидаты" type="radio">
-          <Flex flexDirection='column'>
-            <MenuItem borderRadius='8px' mb='10px'>
-              <ItemContent
-                time='13 minutes ago'
-                info='from Alicia'
-                boldInfo='New Message'
-                aName='Alicia'
-                aSrc={avatar1}
-              />
-            </MenuItem>
-            <MenuItem borderRadius='8px' mb='10px'>
-              <ItemContent
-                time='2 days ago'
-                info='by Josh Henry'
-                boldInfo='New Album'
-                aName='Josh Henry'
-                aSrc={avatar2}
-              />
-            </MenuItem>
-            <MenuItem borderRadius='8px'>
-              <ItemContent
-                time='3 days ago'
-                info='Payment succesfully completed!'
-                boldInfo=''
-                aName='Kara'
-                aSrc={avatar3}
-              />
-            </MenuItem>
-          </Flex>
-          </MenuOptionGroup>
-        </MenuList>
-      </Menu>
+
     </Flex>
   );
 }

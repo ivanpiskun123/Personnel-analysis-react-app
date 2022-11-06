@@ -147,7 +147,7 @@ argon-dashboard-chakra/
     │   ├── Sidebar
     │   │   ├── Sidebar.js
     │   │   └── SidebarHelp.js
-    │   └── Tables
+    │   └── Vacancies
     │       ├── BillingRow.js
     │       ├── DashboardTableRow.js
     │       ├── InvoicesRow.js
@@ -184,7 +184,7 @@ argon-dashboard-chakra/
     │   │   ├── Billing.js
     │   │   ├── Candidates.js
     │   │   ├── Profile.js
-    │   │   └── Tables.js
+    │   │   └── Vacancies.js
     │   ├── Pages
     │   │   ├── SignIn.js
     │   │   └── SignUp.js

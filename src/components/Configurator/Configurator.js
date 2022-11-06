@@ -131,17 +131,17 @@ export default function Configurator(props) {
                               w="100%"
                               mb="16px"
                           >
-                            <Button
-                                w="100%"
-                                mb="16px"
-                                bg={bgButtonStat}
-                                color={colorButton}
-                                fontSize="xs"
-                                variant="no-effects"
-                                px="30px"
-                            >
-                              Анализ продуктивности
-                            </Button>
+                            {/*<Button*/}
+                            {/*    w="100%"*/}
+                            {/*    mb="16px"*/}
+                            {/*    bg={bgButtonStat}*/}
+                            {/*    color={colorButton}*/}
+                            {/*    fontSize="xs"*/}
+                            {/*    variant="no-effects"*/}
+                            {/*    px="30px"*/}
+                            {/*>*/}
+                            {/*  Анализ продуктивности*/}
+                            {/*</Button>*/}
 
                           </Link>
 
