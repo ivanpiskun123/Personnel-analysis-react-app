@@ -93,89 +93,6 @@ function Vacancies() {
 
   return (
     <Flex direction="column" pt={{ base: "120px", md: "75px" }}>
-      <SimpleGrid columns={{ sm: 2, md: 2, xl: 2 }} spacing='24px' mb='20px'>
-
-        <Card minH='125px'>
-          <Flex direction='column'>
-            <Flex
-                flexDirection='row'
-                align='center'
-                justify='center'
-                w='100%'
-                mb='25px'>
-              <Stat me='auto'>
-                <StatLabel
-                    fontSize='xs'
-                    color='gray.400'
-                    fontWeight='bold'
-                    textTransform='uppercase'>
-                  Открытые
-                </StatLabel>
-                <Flex>
-                  <StatNumber fontSize='lg' color={textColor} fontWeight='bold'>
-                    {currentVacanciesOpened(vacancies).length}
-                  </StatNumber>
-                </Flex>
-              </Stat>
-              <IconBox
-                  borderRadius='50%'
-                  as='box'
-                  h={"45px"}
-                  w={"45px"}
-                  bg={iconBlue}>
-                <FaSearchPlus h={"24px"} w={"24px"} color={iconBoxInside} />
-              </IconBox>
-            </Flex>
-
-            <Text color='gray.400' fontSize='sm' >
-              <ViewIcon color='blue.400' mr="10px" />
-              В поиске кадров
-            </Text>
-          </Flex>
-        </Card>
-
-        <Card minH='125px'>
-          <Flex direction='column'>
-            <Flex
-                flexDirection='row'
-                align='center'
-                justify='center'
-                w='100%'
-                mb='25px'>
-              <Stat me='auto'>
-                <StatLabel
-                    fontSize='xs'
-                    color='gray.400'
-                    fontWeight='bold'
-                    textTransform='uppercase'>
-                  Закрытые
-                </StatLabel>
-                <Flex>
-
-                  <StatNumber fontSize='lg' color={textColor} fontWeight='bold'>
-                    {currentVacanciesClosed(vacancies).length}
-                  </StatNumber>
-                </Flex>
-              </Stat>
-              <IconBox
-                  borderRadius='50%'
-                  as='box'
-                  h={"45px"}
-                  w={"45px"}
-                  bg={iconBlue}>
-                <FaDoorClosed boxSize={10} color={iconBoxInside} />
-              </IconBox>
-            </Flex>
-
-            <Text color='gray.400' fontSize='sm' >
-              <CheckIcon color='green.400' mr="10px" />
-              Кандидат принят
-            </Text>
-          </Flex>
-        </Card>
-
-      </SimpleGrid>
-
 
       <Card
         my="22px"
@@ -204,15 +121,7 @@ function Vacancies() {
                   <VacancyNewModal isOpen={isOpen} onClose={onClose} overlay={overlay} vacancies={vacancies}
                                    setVacancies={setVacancies} />
                 </GridItem>
-                <GridItem >
-                  <SortBarVacancies sort={sort} setSort={setSort} />
-                </GridItem>
-                <GridItem  >
-                  <FilterBarVacancies filter={filter} setFilter={setFilter} />
-                </GridItem>
-                <GridItem>
-                  <SearchBarVacancies query={query} setQuery={setQuery} />
-                </GridItem>
+
               </Grid>
             </GridItem>
           </Grid>
